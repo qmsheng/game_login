@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">	
+    <head>
+        <title></title>         
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <base href="<?php echo e($game_url); ?>"/>
+        <style type="text/css" media="screen"> 
+			html, body	{ height:100%; width:100%;}
+			body { margin:0; padding:0;
+			       background-color: #000000;}
+			#gameContent {width:100;height:100%;background:#000000} 
+			
+        </style>
+        
+        	<script type="text/javascript">document.domain = "oasgames.com";</script>
+            <script type="text/javascript" src="bin-debug/swfobject.js"></script>
+            <script type="text/javascript" src="bin-debug/jquery.js"></script>
+            <script type="text/javascript" src="bin-debug/js_launcher.js"></script>
+            <script type="text/javascript">
+                    window.onload = function() {
+                    prelaunch();
+                    
+                    //检察是否安装flash player
+                    var fls = flashChecker();
+                    if(!fls.f)
+                    {
+                        //如果没安装,则提交错误log
+                        postData("https://s1tr.dh.oasgames.com/oas/addlog?uid=" + "<?php echo e($uid); ?>" + "&type=15&logid=10025" + "&serverid=" + "<?php echo e($server_id); ?>");
+                    }
+                    else
+                    {
+                        postData("https://s1tr.dh.oasgames.com/oas/addlog?uid=" + "<?php echo e($uid); ?>" + "&type=15&logid=10002" + "&serverid=" + "<?php echo e($server_id); ?>");               
+                    }
+                    
+                    var versionstr = "<?php echo e($generate_time); ?>";
+                    var app_url = "<?php echo e($game_url); ?>";
+
+                    var flashvars = {ip:"<?php echo e($gs_ip); ?>", port:"<?php echo e($gs_port); ?>", userid:"<?php echo e($uid); ?>", prv_key:"<?php echo e($validate_key); ?>", platform:"<?php echo e($platform); ?>", timestamp:"<?php echo e($generate_time); ?>",server_id:"<?php echo e($server_id); ?>", create_role:"<?php echo e($create_role); ?>", path:app_url, log_url:"http://148.153.34.19:7080"};
+                    var params = {allowFullScreen:"true",allowScriptAccess:"always",wmode:"direct", allowfullscreenInteractive:"true"};
+                var swf = app_url + 'bin-debug/proload.swf?' + versionstr;
+                    
+                    var onEmbedError = function(msg) {
+                        if (!msg.success) {
+                            //collectData("embedError");
+                            postData("https://s1tr.dh.oasgames.com/oas/addlog?uid=" + "<?php echo e($uid); ?>" + "&type=15&logid=10026" + "&serverid=" + "<?php echo e($server_id); ?>");
+                        }
+                    }
+
+                    swfobject.embedSWF(
+                        swf, "gameContent",
+                        "100%", "100%",
+                        "11.0.0",
+                        "expressInstall.swf",
+                        flashvars,params
+                    );
+                    }
+                    
+                    function report_log(_uid, _type, _logid) {
+                        postData("https://s1tr.dh.oasgames.com/oas/addlog?uid=" + _uid + "&type=" + _type + "&logid=" + _logid + "&serverid=" + "<?php echo e($server_id); ?>");
+                    }
+                </script>
+    </head>
+   
+   
+   <body onresize="resize();">
+    <script language="JavaScript">collectData("pageBody");</script>
+    <div id="gameContent">
+      <div id="gameContainer" style="text-align:center; padding:10px; font-size: 24px; line-height: 600px; style='color:#000000';">
+      game loading...
+      <noscript>对不起您的浏览器不支持JavaScript，请启用JavaScript！</noscript>
+      </div>
+    </div>
+</body>
+</html>

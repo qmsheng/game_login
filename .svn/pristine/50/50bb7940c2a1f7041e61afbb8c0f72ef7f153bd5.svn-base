@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">	
+    <head>
+        <title></title>         
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <base href="<?php echo e($game_url); ?>"/>
+        <style type="text/css" media="screen"> 
+			html, body	{ height:100%; width:100%;}
+			body { margin:0; padding:0;
+			       background-color: #000000;}
+			#gameContent {width:100;height:100%;background:#000000} 
+			
+        </style>
+        
+        	<script type="text/javascript">document.domain = "oasgames.com";</script>
+            <script type="text/javascript" src="bin-debug/swfobject.js"></script>
+            <script type="text/javascript" src="bin-debug/js_launcher.js"></script>
+            <script type="text/javascript">
+                    window.onload = function() {
+                    prelaunch();
+                    
+                    var versionstr = "<?php echo e($generate_time); ?>";
+                    var app_url = "<?php echo e($game_url); ?>";
+
+                    var flashvars = {ip:"<?php echo e($loginserver_ip); ?>", port:"<?php echo e($loginserver_port); ?>", userid:"<?php echo e($uid); ?>", prv_key:"<?php echo e($validate_key); ?>", platform:"<?php echo e($platform); ?>", timestamp:"<?php echo e($generate_time); ?>", server_id:"<?php echo e($server_id); ?>", path:app_url};
+                    var params = {allowFullScreen:"true",allowScriptAccess:"always",wmode:"direct", allowfullscreenInteractive:"true"};
+                var swf = app_url + 'bin-debug/proload.swf?' + versionstr;
+                    
+                    var onEmbedError = function(msg) {
+                        if (!msg.success) {
+                            collectData("embedError");
+                        }
+                    }
+
+                    swfobject.embedSWF(
+                        swf, "gameContent",
+                        "100%", "100%",
+                        "11.0.0",
+                        "expressInstall.swf",
+                        flashvars,params
+                    );
+                    }
+                </script>
+    </head>
+   
+   
+   <body onresize="resize();">
+    <script language="JavaScript">collectData("pageBody");</script>
+    <div id="gameContent">
+      <div id="gameContainer" style="text-align:center; padding:10px; font-size: 24px; line-height: 600px; style='color:#000000';">
+      game loading...
+      <noscript>对不起您的浏览器不支持JavaScript，请启用JavaScript！</noscript>
+      </div>
+    </div>
+</body>
+</html>
